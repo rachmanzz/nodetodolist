@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/rachmanzz/nodejs-todolist#readme",
   "dependencies": {
+    "@fastify/type-provider-typebox": "^2.4.0",
+    "@sinclair/typebox": "^0.25.12",
     "fastify": "^4.10.2"
   },
   "devDependencies": {
