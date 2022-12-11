@@ -16,7 +16,7 @@ const InsertActivityReply = Type.Object({
   })
 });
 
-const ErrorActivityReply = Type.Object({ status: Type.String(), message: Type.String(), data: Type.Object({}) })
+const ErrorActivityReply = Type.Object({ status: Type.String(), message: Type.String(), data: Type.Object({}) });
 
 const InsertBodyActivity = Type.Object({
   title: Type.String(),
@@ -28,8 +28,8 @@ export const InsertActivitySchema = {
     body: InsertBodyActivity,
     response: {
       200: InsertActivityReply,
-      400: Type.Object({ status: Type.String(), message: Type.String(), data: Type.Object({}) }),
-      500: Type.Object({ status: Type.String(), message: Type.String(), data: Type.Object({}) })
+      400: ErrorActivityReply,
+      500: ErrorActivityReply
     }
   }
 }
