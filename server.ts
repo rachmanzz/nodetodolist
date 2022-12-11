@@ -12,7 +12,7 @@ const server = app({
   }
 });
 
-server.register(formbody, { parser: str => JSON.parse(str) });
+server.register(formbody, { parser: str => /^{.*}$/.test(str) ? JSON.parse(str) : {} });
 server.register(prismaPlugin);
 server.setErrorHandler((error, req, reply) => {
   if (error.validation && error.validation.length >= 1) {
