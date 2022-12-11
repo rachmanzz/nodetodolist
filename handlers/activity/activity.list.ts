@@ -8,7 +8,7 @@ const ActivityReplyList = Type.Object({
   data: Type.Array(Type.Object({
     created_at: Type.String(),
     updated_at: Type.String(),
-    deleted_at: Type.String({default: null}),
+    deleted_at: Type.Null({default: null}),
     id: Type.Number(),
     title: Type.String(),
     email: Type.String({ format: "email" }),
