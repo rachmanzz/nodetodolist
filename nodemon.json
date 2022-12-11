@@ -1,0 +1,7 @@
+{
+  "ignore": ["./dist"],
+  "watch": ["./*.ts", "handlers"],
+  "ext": "ts,json",
+  "delay": 1000,
+  "exec": "npm run generate" 
+}
