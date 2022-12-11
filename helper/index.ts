@@ -1,0 +1,1 @@
+export const isoDate = (date: Date = new Date()) => date.toISOString();
