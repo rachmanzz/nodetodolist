@@ -1,7 +1,6 @@
 import app from "./app";
 import prismaPlugin from "./plugins/prisma";
 import formbody from "@fastify/formbody";
-import Fastify from 'fastify';
 
 const server = app({
   logger: {
@@ -12,9 +11,14 @@ const server = app({
   }
 });
 
-server.register(formbody, { parser: str => /^{.*}$/.test(str) ? JSON.parse(str) : {} });
+server.register(formbody, { parser: str => {
+  // remove all space and new line to validate JSON
+  // this is not best way to validate JSON, but this fast way for now
+  const strNoSpace = str.replace(/\n/g, "").replace(/\s+/g, "");
+  return /^{.*}$/.test(strNoSpace) ? JSON.parse(str) : {}
+} });
 server.register(prismaPlugin);
-server.setErrorHandler((error, req, reply) => {
+server.setErrorHandler((error, _, reply) => {
   if (error.validation && error.validation.length >= 1) {
     const validation = error.validation[0];
 
@@ -31,7 +35,7 @@ server.setErrorHandler((error, req, reply) => {
     .send({ status: error.name, message: error.message, data: {} });
 });
 
-server.listen({ port: 3000 }, (err) => {
+server.listen({ port: 3030 }, (err) => {
   if (err) {
     server.log.error(err)
     process.exit(1)
