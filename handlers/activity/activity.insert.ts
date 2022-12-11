@@ -27,7 +27,7 @@ export const InsertActivitySchema = {
   schema: {
     body: InsertBodyActivity,
     response: {
-      200: InsertActivityReply,
+      201: InsertActivityReply,
       400: ErrorActivityReply,
       500: ErrorActivityReply
     }
@@ -42,7 +42,7 @@ export type InsertActivityBodyType = Static<typeof InsertBodyActivity>;
 const insertActivityHandler = (app: FastifyInstance) => async (req: FastifyRequest<{ Body: InsertActivityBodyType }>, reply: FastifyReply) => {
   try {
     const activity = await app.prisma.activities.create({ data: { ...req.body, created_at: isoDate(), updated_at: isoDate() } });
-    reply.code(200)
+    reply.code(201)
       .type("application/json; charset=utf-8")
       .send({ status: "Success", message: "Success", data: activity });
   } catch (error) {
