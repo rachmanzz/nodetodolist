@@ -1,4 +1,4 @@
-import { Todos } from "@prisma/client";
+import { todos } from "@prisma/client";
 import { PrismaClientKnownRequestError, PrismaClientUnknownRequestError, PrismaClientValidationError } from "@prisma/client/runtime";
 import { Static, Type } from "@sinclair/typebox";
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
@@ -35,7 +35,7 @@ const getListTodoItemHandler = (app: FastifyInstance) => async (req: FastifyRequ
     const todolist = await (req.query.activity_group_id ? app.prisma.todos.findMany({where: {activity_group_id: +req.query.activity_group_id}}) : app.prisma.todos.findMany());
     reply.code(200)
       .type("application/json; charset=utf-8")
-      .send({ status: "Success", message: "Success", data: todolist.map( (v: Todos) => v.deleted_at ? v : ({...v, deleted_at: null, is_active: v.is_active ? "1" : "0"}) ) });
+      .send({ status: "Success", message: "Success", data: todolist.map( (v: todos) => v.deleted_at ? v : ({...v, deleted_at: null, is_active: v.is_active ? "1" : "0"}) ) });
   } catch (error) {
     if (error instanceof PrismaClientValidationError || error instanceof PrismaClientKnownRequestError || error instanceof PrismaClientUnknownRequestError) {
       reply.code(500)

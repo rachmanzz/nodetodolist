@@ -1,4 +1,4 @@
-import { Activities } from "@prisma/client";
+import { activities } from "@prisma/client";
 import { PrismaClientValidationError, PrismaClientKnownRequestError, PrismaClientUnknownRequestError } from "@prisma/client/runtime";
 import { Static, Type } from "@sinclair/typebox";
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
@@ -34,7 +34,7 @@ const listActivityHandler = (app: FastifyInstance) => async (_: FastifyRequest, 
     const activities = await app.prisma.activities.findMany();
     reply.code(200)
       .type("application/json; charset=utf-8")
-      .send({ status: "Success", message: "Success", data: activities.map( (v: Activities) => v.deleted_at ? v : ({...v, deleted_at: null}) ) });
+      .send({ status: "Success", message: "Success", data: activities.map( (v: activities) => v.deleted_at ? v : ({...v, deleted_at: null}) ) });
   } catch (error) {
     if (error instanceof PrismaClientValidationError || error instanceof PrismaClientKnownRequestError || error instanceof PrismaClientUnknownRequestError) {
       reply.code(500)
