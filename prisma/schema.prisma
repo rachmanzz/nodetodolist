@@ -1,0 +1,35 @@
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Activities {
+  id         Int     @id @default(autoincrement())
+  email      String
+  title      String
+  created_at String // string instead of DateTime because we need store Iso String of Date
+  updated_at String
+  deleted_at String?
+  todos      Todos[]
+}
+
+model Todos {
+  id                Int        @id @default(autoincrement())
+  title             String
+  is_active         Boolean
+  priority          String
+  created_at        String
+  updated_at        String
+  deleted_at        String?
+  activity          Activities @relation(fields: [activity_group_id], references: [id])
+  activity_group_id Int
+}
+
