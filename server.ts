@@ -4,7 +4,7 @@ import formbody from "@fastify/formbody";
 
 const server = app({
   logger: {
-    level: "error",
+    level: "info",
     transport: {
       target: 'pino-pretty'
     }
@@ -34,10 +34,11 @@ server.setErrorHandler((error, _, reply) => {
     .type("application/json; charset=utf-8")
     .send({ status: error.name, message: error.message, data: {} });
 });
-
-server.listen({ port: 3030 }, (err) => {
+const port  = process.env.PORT && parseInt(process.env.PORT) || 3030;
+server.listen({ port: port, host: '0.0.0.0' }, (err) => {
   if (err) {
     server.log.error(err)
     process.exit(1)
   }
+  console.log(`listen on port 3030`);
 });
