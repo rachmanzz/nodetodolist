@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE `Activities` (
+CREATE TABLE `activities` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `email` VARCHAR(191) NOT NULL,
     `title` VARCHAR(191) NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE `Activities` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Todos` (
+CREATE TABLE `todos` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(191) NOT NULL,
     `is_active` BOOLEAN NOT NULL,
@@ -25,4 +25,4 @@ CREATE TABLE `Todos` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `Todos` ADD CONSTRAINT `Todos_activity_group_id_fkey` FOREIGN KEY (`activity_group_id`) REFERENCES `Activities`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `todos` ADD CONSTRAINT `todos_activity_group_id_fkey` FOREIGN KEY (`activity_group_id`) REFERENCES `activities`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
